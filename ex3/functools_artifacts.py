@@ -59,12 +59,24 @@ def spell_dispatcher() -> Callable[[Any], str]:
 	return base_dispatcher
 
 
+def cast_spell(power: int, element: str, target: str) -> str:
+	return f"[Power: {power}] | Element: {element} -> spell used on {target}"
+
+
 def main():
 	print("Testing spell reducer...")
 	sample_spells = [10, 20, 30, 40]
 	print(f"Sum: {spell_reducer(sample_spells, 'add')}")
 	print(f"Product: {spell_reducer(sample_spells, 'multiply')}")
 	print(f"Max: {spell_reducer(sample_spells, 'max')}")
+	print("\nTesting partial enchanter...")
+	spell_book = partial_enchanter(cast_spell)
+	fire_spell = spell_book["fire"]
+	ice_spell = spell_book["ice"]
+	lightning_spell = spell_book["lightning"]
+	print(fire_spell(target="Red Dragon"))
+	print(ice_spell(target="Stone Golem"))
+	print(lightning_spell(target="Frank"))
 	print("\nTesting memoized fibonacci...")
 	print(f"Fib(0): {memoized_fibonacci(0)}")
 	print(f"Fib(1): {memoized_fibonacci(1)}")
