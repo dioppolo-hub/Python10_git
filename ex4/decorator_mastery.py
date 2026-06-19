@@ -17,19 +17,6 @@ def spell_timer(func: Callable) -> Callable:
     return wrapper
 
 
-def power_validator(min_power: int) -> Callable:
-    def decorator(func: Callable) -> Callable:
-
-        @wraps(func)
-        def wrapper(self, spell_name: str, power: int):
-            if power >= min_power:
-                return func(self, spell_name, power)
-            else:
-                return "Insufficent power"
-        return wrapper
-    return decorator
-
-
 def retry_spell(max_attempts: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @wraps(func)
@@ -43,6 +30,19 @@ def retry_spell(max_attempts: int) -> Callable:
                         f" {attempt}/{max_attempts})"
                         )
             return f"Spell casting failed after {max_attempts} attempts"
+        return wrapper
+    return decorator
+
+
+def power_validator(min_power: int) -> Callable:
+    def decorator(func: Callable) -> Callable:
+
+        @wraps(func)
+        def wrapper(self, spell_name: str, power: int):
+            if power >= min_power:
+                return func(self, spell_name, power)
+            else:
+                return "Insufficent power"
         return wrapper
     return decorator
 
